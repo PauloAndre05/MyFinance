@@ -4,7 +4,7 @@ import { Sidebar } from "../components/sidebar/Index";
 export const Layout = () => {
     return(
         <div className="h-screen overflow-hidden flex">
-            <div className="borderñ w-60">
+            <div className="w-60">
                 <Sidebar />
             </div>
             <div className="border flex-1">
