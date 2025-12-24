@@ -9,7 +9,7 @@ export const Layout = () => {
         setDarkMode(!darkMode)
     }
     return(
-        <div data-theme={darkMode ? "dark" : "light"} className="h-screen overflow-hidden flex border-e-bg-primary dark:bg-bg-secondary dark:text-text-secondary">
+        <div data-theme={darkMode ? "dark" : "light"} className="h-screen overflow-hidden flex border-e-bg-primary dark:bg-bg-secondary dark:text-text-secondary bg-bg-primary">
             <div className="w-60">
                 <Sidebar />
             </div>
@@ -17,7 +17,7 @@ export const Layout = () => {
                 <header>
                     <Header toggleDarkMode={toggleDarkMode} isdarkMode={darkMode} />
                 </header>
-                <main>
+                <main className="px-6 py-2">
                     <Outlet />
                 </main>
             </div>
