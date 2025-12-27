@@ -16,7 +16,7 @@ export const Saldo = () => {
   }
 
   return (
-    <div className="bg-white flex flex-col gap-4 px-8 py-4 rounded-md dark:bg-[#262C36] shadow-md">
+    <div className="bg-white flex flex-col gap-4 px-8 py-4 rounded-md dark:bg-crdBg-secondary shadow-md">
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
           <HandCoinsIcon size={24} color="green" />
