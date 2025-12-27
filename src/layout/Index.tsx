@@ -20,7 +20,7 @@ export const Layout = () => {
         <header>
           <Header toggleDarkMode={toggleDarkMode} isdarkMode={darkMode} />
         </header>
-        <main className="p-6">
+        <main className="p-6 overflow-y-auto h-[calc(100vh-64px)]">
           <Outlet />
         </main>
       </div>
