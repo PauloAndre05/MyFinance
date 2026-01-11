@@ -1,6 +1,10 @@
 import { dadosTransacoes } from "../../transacoes/dadosTransacoes";
 
-export const TabelaTransacoes = () => {
+interface TabelaTransacoesProps {
+  filteredTransacoes: typeof dadosTransacoes;
+}
+
+export const TabelaTransacoes = ({ filteredTransacoes }: TabelaTransacoesProps) => {
   return (
       <table className="bg-white dark:bg-crdBg-secondary shadow-md rounded-md w-full overflow-y-auto">
         <thead className=" text-left text-sm">
@@ -14,7 +18,7 @@ export const TabelaTransacoes = () => {
         </thead>
 
         <tbody className="text-sm">
-          {dadosTransacoes.map((transacao) => {
+          {filteredTransacoes.map((transacao) => {
             const valorClass =
               transacao.valor < 0 ? "text-red-500" : "text-green-500";
             return (

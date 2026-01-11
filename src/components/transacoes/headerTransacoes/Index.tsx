@@ -24,21 +24,12 @@ export const HeaderTransacoes = ({
         <h1 className="text-2xl font-semibold">Transações</h1>
         <p className="text-sm">{`${currentMonth} de ${currenteYear} . 18 transações`}</p>
       </div>
-      {isOpenModal ? (
-        <button
-          className="px-4 py-2 text-white font-semibold bg-red-400 rounded-md cursor-pointer"
-          onClick={handleOpenModal}
-        >
-          Cancelar
-        </button>
-      ) : (
-        <button
-          className="px-4 py-2 text-white font-semibold bg-primary rounded-md cursor-pointer"
-          onClick={handleOpenModal}
-        >
-          Nova transação
-        </button>
-      )}
+      <button
+        className="px-4 py-2 text-white font-semibold bg-primary rounded-md cursor-pointer"
+        onClick={handleOpenModal}
+      >
+        Nova transação
+      </button>
     </div>
   );
 };
