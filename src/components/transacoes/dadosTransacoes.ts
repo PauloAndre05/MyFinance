@@ -1,0 +1,16 @@
+export const dadosTransacoes = [
+    {id: "sdfsdf1235tsds", descricao: "Supermercado", categoria: "Alimentação", tipo: "Despesa", valor: -43.20, data: "10/01/2026"},
+    {id: "sdfsdf12425tsds", descricao: "Gasolina", categoria: "Transporte", tipo: "Despesa", valor: -50.00, data: "12/02/2026"},
+    {id: "sdfsdf12435tsds", descricao: "Aluguel", categoria: "Moradia", tipo: "Despesa", valor: -800.00, data: "15/03/2026"},
+    {id: "sdfsdf123sdds5tsds", descricao: "Salário", categoria: "Renda", tipo: "Receita", valor: 2500.00, data: "18/04/2026"},
+    {id: "sdfsdf123ffsdse5tsds", descricao: "Restaurante", categoria: "Lazer", tipo: "Despesa", valor: -75.50, data: "20/05/2026"},
+    {id: "sdfsdf12hrdgd35tsds", descricao: "Internet", categoria: "Serviços", tipo:"Despesa" , valor:-89.99, data:"22/06/2026"},
+    {id: "fhfrgfsdfsdf1235tsds", descricao: "Cinema", categoria: "Lazer", tipo: "Despesa", valor: -45.75, data: "24/07/2026"},
+    {id: "sdfsdfhfhfg1235tsds", descricao: "Supermercado", categoria: "Alimentação", tipo: "Despesa", valor: -43.20, data: "10/01/2026"},
+    {id: "sdfsdf1235tuyhjhtsds", descricao: "Gasolina", categoria: "Transporte", tipo: "Despesa", valor: -50.00, data: "12/02/2026"},
+    {id: "sdfsdf1235tsdedfgvfvhs", descricao: "Aluguel", categoria: "Moradia", tipo:"Despesa" , valor:-800.00, data:"15/03/2026"},
+    {id: "sdfsdf1235tsdxgbykjytgs", descricao: "Salário", categoria:"Renda" , tipo:"Receita" , valor: 2500.00, data:"18/04/2026"},
+    {id: "sdfsdf1235tsddcxfaes", descricao: "Restaurante", categoria:"Lazer" , tipo:"Despesa" , valor:-75.50, data:"20/05/2026"},
+    {id: "sdfsdf1235tsdzfgfbvs", descricao:"Internet" , categoria:"Serviços" , tipo:"Despesa" , valor:-89.99, data:"22/06/2026"},
+    {id: "sdfsdf1235tsds576i75", descricao:"Cinema" , categoria:"Lazer" , tipo:"Despesa" , valor:-45.75, data:"24/07/2026"},
+]
