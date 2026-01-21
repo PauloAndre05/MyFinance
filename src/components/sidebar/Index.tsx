@@ -17,7 +17,7 @@ export const Sidebar = () => {
     navigate(ref);
   }
   return (
-    <aside className="flex flex-col h-screen gap-4 p-4 border-r-[.5px] border-[#D1D7E0] dark:border-r-[#262C36] fixed w-60 bg-white dark:bg-bg-secondary">
+    <aside className="flex flex-col h-screen gap-4 p-4 border-r-[.5px] border-text-secondary dark:border-r-crdBg-secondary fixed w-60 bg-white dark:bg-bg-secondary">
       <div className="flex">
         <span className="text-2xl font-bold dark:text-white">My</span>
         <span className="text-2xl text-primary dark:text-primary font-bold">Finance</span>
@@ -26,9 +26,9 @@ export const Sidebar = () => {
         <ul className="flex flex-col gap-2 ">
           {linkList.map((link) => (
             <li
-              className={`px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-[#262C36] transition-colors rounded-md duration-75 dark:text-white dark:font-light ${
+              className={`px-4 py-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-crdBg-secondary transition-colors rounded-md duration-75 dark:text-white dark:font-light ${
                 isActive === link.id
-                  ? "bg-gray-100 font-semibold text-primary dark:bg-[#262C36] dark:text-primary dark:font-semibold"
+                  ? "bg-gray-100 font-semibold text-primary dark:bg-crdBg-secondary dark:text-primary dark:font-semibold"
                   : ""
               }`}
               key={link.id}

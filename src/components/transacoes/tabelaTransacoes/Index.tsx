@@ -4,11 +4,12 @@ import { BsTrash3 } from "react-icons/bs";
 import { useState } from "react";
 import { ModalEliminar } from "../../shared/modalEliminar";
 import { EditarTransacaoModal } from "../../shared/editarTransacaoModal";
+import type { TransacaoInterface } from "../transacaoInterface";
 
 interface tabelaTransacoesProps {
   transacoes: typeof dadosTransacoes;
   getTransactionById: (id: string) => void;
-  transactionFound?: object
+  transactionFound: TransacaoInterface
 }
 
 export const TabelaTransacoes = ({
@@ -26,7 +27,6 @@ export const TabelaTransacoes = ({
   function handleOpenEditarModal() {
     setIsOpenEditarModal(!isOpenEditarModal);
   }
-  console.log(transactionFound)
 
   return (
     <table className="bg-white dark:bg-crdBg-secondary shadow-md rounded-md w-full overflow-y-auto">
@@ -94,7 +94,6 @@ export const TabelaTransacoes = ({
         <EditarTransacaoModal
           isOpen={isOpenEditarModal}
           setIsOpen={setIsOpenEditarModal}
-          nomeAcao="Transação"
           dataTransactioEdit={transactionFound}
         />
       )}
