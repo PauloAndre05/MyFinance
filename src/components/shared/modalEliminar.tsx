@@ -14,7 +14,7 @@ export const ModalEliminar = ({ nomeAcao, isOpen, setIsOpen }: ModalEliminarProp
     return (
         <>
       {isOpen && (
-        <div className="absolute bg-black/10 dark:bg-black/50 inset-0 flex justify-center items-center backdrop-blur-[.5px] z-10" onClick={handleCloseModal}>
+        <div className="absolute bg-black/10 dark:bg-black/50 inset-0 flex justify-center items-center backdrop-blur-[.5px] z-10">
           <div className="p-6 bg-white dark:bg-crdBg-secondary border-primary shadow-xl flex flex-col gap-6 rounded-md z-50"  onClick={(e) => e.stopPropagation()}>
             <h1 className="text-center font-semibold">Tem a certeza que deseja eliminar a/o {nomeAcao}?</h1>
             <div className="flex justify-between gap-3">
