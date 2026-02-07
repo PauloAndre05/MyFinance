@@ -1,16 +1,16 @@
 import { z } from "zod";
 
 export const transationSchema = z.object({
-  tipo: z.enum(["Receita", "Despesa"]),
+  type: z.enum(["income", "expense"]),
 
-  descricao: z.string()
-  .min(3, "o a descriçao deve ter no mínimo 3 caracteres"),
+  description: z.string()
+  .min(3, "the description must have three caracter"),
 
-  valor: z.number({error: "Informe um valor válido"})
-  .positive("o valor da transação dev ser maior que zero"), 
+  amount: z.number({error: "enter with a valid value"})
+  .positive("transaction value must be greater than zero"), 
 
-  categoria: z.string()
-  .min(1, "Selecione uma categoria"),
+  category: z.string()
+  .min(1, "select category"),
 
   date: z.string(),
 

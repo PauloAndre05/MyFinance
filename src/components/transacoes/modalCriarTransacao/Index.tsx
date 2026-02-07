@@ -7,15 +7,15 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TransactionService } from "../../../services/TransactionService";
 
-interface ModalCriarTransacaoProps {
+interface ModalCreateTransactionProps {
   isOpen: boolean;
   setIsOpen?: (value: boolean) => void;
 }
 
-export const ModalCriarTransacao = ({
+export const ModalCreateTransaction = ({
   isOpen,
   setIsOpen,
-}: ModalCriarTransacaoProps) => {
+}: ModalCreateTransactionProps) => {
 
   function handleCloseModal() {
     if (setIsOpen) {
@@ -27,14 +27,13 @@ export const ModalCriarTransacao = ({
     resolver: zodResolver(transationSchema),
   });
 
-  function onSubmit(data: TransactioFormData) {
+  async function onSubmit(data: TransactioFormData) {
     const transaction = {
       id: crypto.randomUUID(),
       createdAt: new Date().toDateString(),
       ...data, 
     }
     TransactionService.create(transaction)
-    
   }
 
   return (
@@ -59,30 +58,42 @@ export const ModalCriarTransacao = ({
                   placeholder="Descrição"
                   min="0"
                   className="outline-none border-b border-primary w-full p-2"
-                  {...register("descricao")}
+                  {...register("description")}
                 />
               </div>
 
               <select
                 className="w-65 outline-none border-b border-primary p-2"
-                {...register("tipo")}
+                {...register("type")}
               >
                 <option className="" disabled>Tipo de transação</option>
-                <option className="" value="Receita">
+                <option className="" value="income">
                   Receita
                 </option>
-                <option className="" value="Despesa">
+                <option className="" value="expense">
                   Despesa
                 </option>
               </select>
 
               <select
                 className="w-65 outline-none border-b border-primary p-2"
-                {...register("categoria")}
+                {...register("category")}
               >
                 <option className="" disabled>Categoria</option>
-                <option className="" value="Transporte">
-                  Transporte
+                <option className="" value="transport">
+                  Transaport
+                </option>
+                <option className="" value="leisure">
+                  Lazer
+                </option>
+                <option className="" value="alimentation">
+                  Alimentação
+                </option>
+                <option className="" value="transfer">
+                  Transferência
+                </option>
+                <option className="" value="deposit">
+                  Depósito a ordem
                 </option>
               </select>
 
@@ -92,7 +103,7 @@ export const ModalCriarTransacao = ({
                   step="0.01"
                   placeholder="Valor"
                   className="outline-none border-b border-primary w-full p-2"
-                  {...register("valor", { valueAsNumber: true })}
+                  {...register("amount", {valueAsNumber: true})}
                 />
               </div>
 
