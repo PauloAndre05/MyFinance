@@ -1,11 +1,11 @@
-export type TransacaoTipo = "Receita" | "Despesa"
+export type TransacaoTipo = "income" | "expense"
 
-export interface Transacao {
+export interface Transaction {
     id: string,
-    tipo: TransacaoTipo,
-    descricao: string,
-    categoria: string,
-    valor: number,
+    type: TransacaoTipo,
+    description: string,
+    category: string,
+    amount: number,
     date: string,
     createdAt: string
 }

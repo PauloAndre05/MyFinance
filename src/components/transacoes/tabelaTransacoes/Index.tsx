@@ -2,24 +2,24 @@ import { PiPencilLight } from "react-icons/pi";
 import { BsTrash3 } from "react-icons/bs";
 import { useState } from "react";
 import { ModalEliminar } from "../../shared/modalEliminar";
-import type { Transacao } from "../../../types/Transaction";
+import type { Transaction } from "../../../types/Transaction";
 import { EditarTransacaoModal } from "../../shared/editarTransacaoModal";
 import { format } from "date-fns";
+import { LiaEuroSignSolid } from "react-icons/lia";
 
-interface tabelaTransacoesProps {
-  transacoes: Transacao[];
+interface tableTransactionsProp {
+  transactions: Transaction[];
   getTransactionById: (id: string) => void;
-  transactionFound: Transacao | undefined;
+  transactionFound?: Transaction;
 }
 
-export const TabelaTransacoes = ({
-  transacoes,
+export const TableTransactions = ({
+  transactions,
   getTransactionById,
   transactionFound,
-}: tabelaTransacoesProps) => {
-  const [isOpenModalEliminar, setIsOpenModalEliminar] =
-    useState<boolean>(false);
-  const [isOpenEditarModal, setIsOpenEditarModal] = useState<boolean>(false);
+}: tableTransactionsProp) => {
+  const [isOpenModalEliminar, setIsOpenModalEliminar] = useState(false);
+  const [isOpenEditarModal, setIsOpenEditarModal] = useState(false);
 
   function handleOpenModalEliminar() {
     setIsOpenModalEliminar(!isOpenModalEliminar);
@@ -33,42 +33,45 @@ export const TabelaTransacoes = ({
       <table className="bg-white dark:bg-crdBg-secondary shadow-md rounded-md w-full overflow-y-auto">
         <thead className=" text-left text-sm">
           <tr>
-            <th className="py-4  px-10 cursor-pointer">Data</th>
-            <th className="py-4  px-10 cursor-pointer">Descrição</th>
-            <th className="py-4  px-10 cursor-pointer">Tipo</th>
-            <th className="py-4  px-10 cursor-pointer">Categoria</th>
-            <th className="py-4  px-10 cursor-pointer">Valor</th>
-            <th className="py-4  px-10 cursor-pointer text-right">Ações</th>
+            <th className="py-4  px-10 cursor-pointer">Date</th>
+            <th className="py-4  px-10 cursor-pointer">Description</th>
+            <th className="py-4  px-10 cursor-pointer">Type</th>
+            <th className="py-4  px-10 cursor-pointer">Category</th>
+            <th className="py-4  px-10 cursor-pointer">Amount</th>
+            <th className="py-4  px-10 cursor-pointer text-right">Actions</th>
           </tr>
         </thead>
 
         <tbody className="text-sm">
-          {transacoes.map((transacao) => {
-            const valorTipo =
-              transacao.tipo === "Despesa" ? "text-red-500" : "text-green-500"
+          {transactions.map((transaction) => {
+            const typevalue = transaction.type === "expense"
             return (
-              <tr className="shadow" key={transacao.id}>
+              <tr className="shadow" key={transaction.id}>
                 <td className="py-4  px-10 cursor-pointer">
-                  {format(transacao.date, "dd-MM-yyyy")}
-                </td>
-                <td className="py-4  px-10 cursor-pointer">
-                  {transacao.descricao}
-                </td>
-                <td className={`py-4  px-10 cursor-pointer ${valorTipo}`}>
-                  {transacao.tipo}
+                  {format(transaction.date, "dd-MM-yyyy")}
                 </td>
                 <td className="py-4  px-10 cursor-pointer">
-                  {transacao.categoria}
+                  {transaction.description}
                 </td>
-                <td className={`py-4  px-10 cursor-pointer ${valorTipo}`}>
-                  {transacao.tipo === "Despesa" ? `- ${transacao.valor}` : transacao.valor}
+                <td className={`py-4  px-10 cursor-pointer ${typevalue ? "text-red-400" : "text-green-400"}`}>
+                  {transaction.type}
+                </td>
+                <td className="py-4  px-10 cursor-pointer">
+                  {transaction.category}
+                </td>
+                <td className={`py-4  px-10 cursor-pointer flex items-center gap-1 text-right ${typevalue ? "text-red-400" : "text-green-400" }`}>
+                  {typevalue && <span>-</span>}
+                  <div className="flex items-center">
+                    <LiaEuroSignSolid size={14} />
+                    {transaction.amount}
+                  </div>
                 </td>
                 <td className="py-4  px-10 cursor-pointer font-bold text-right">
                   <button
                     className="p-1 mr-1 cursor-pointer"
                     onClick={() => {
                       handleOpenEditarModal();
-                      getTransactionById(transacao.id);
+                      getTransactionById(transaction.id);
                     }}
                   >
                     <PiPencilLight size={15} />

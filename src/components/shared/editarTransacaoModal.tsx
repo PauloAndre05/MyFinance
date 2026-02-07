@@ -1,15 +1,18 @@
-
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-import type { Transacao } from "../../types/Transaction";
+import type { Transaction } from "../../types/Transaction";
 import { format } from "date-fns";
-import type { TransactioFormData } from "../../schemas/TransactionSchema";
+import {
+  transationSchema,
+  type TransactioFormData,
+} from "../../schemas/TransactionSchema";
 import { TransactionService } from "../../services/TransactionService";
 
 interface EditarTransacaoModalProps {
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
-  dataTransactioEdit: Transacao | undefined;
+  dataTransactioEdit?: Transaction;
 }
 
 export const EditarTransacaoModal = ({
@@ -17,37 +20,37 @@ export const EditarTransacaoModal = ({
   setIsOpen,
   dataTransactioEdit,
 }: EditarTransacaoModalProps) => {
-  
   function handleCloseModal() {
     if (setIsOpen) {
       setIsOpen(false);
     }
   }
 
-  if (!dataTransactioEdit) {
-    return null;
-  }
+  if (!dataTransactioEdit) return null;
 
-  const date = new Date(dataTransactioEdit.date);
+  const transaction = dataTransactioEdit;
 
- const {register, handleSubmit} = useForm<TransactioFormData>({
-    defaultValues:{
-      categoria: dataTransactioEdit.categoria,
-      descricao: dataTransactioEdit.descricao,
-      tipo: dataTransactioEdit.tipo,
+  const date = new Date(transaction.date);
+
+  const { register, handleSubmit } = useForm<TransactioFormData>({
+    resolver: zodResolver(transationSchema),
+    defaultValues: {
+      category: transaction.category,
+      description: transaction.description,
+      type: transaction.type,
       date: format(date, "yyyy-MM-dd"),
-      valor: dataTransactioEdit.valor
-    }
- })
+      amount: transaction.amount,
+    },
+  });
 
- function handleUpdateTransaction (data: TransactioFormData) {
-  const newTransaction = {
-    createdAt: new Date().toDateString(),
-    ...data
+  function handleUpdateTransaction(data: TransactioFormData) {
+    const newTransaction = {
+      createdAt: new Date().toDateString(),
+      ...data,
+    };
+    TransactionService.update(transaction.id, newTransaction);
+    handleCloseModal();
   }
-  TransactionService.update(dataTransactioEdit.id, newTransaction)
-  handleCloseModal()
- }
 
   return (
     <>
@@ -61,7 +64,7 @@ export const EditarTransacaoModal = ({
 
             {/* FORMULÁRIO DE EDIÇÃO */}
 
-            <form 
+            <form
               className="text-sm flex flex-col gap-4"
               onSubmit={handleSubmit(handleUpdateTransaction)}
             >
@@ -75,34 +78,34 @@ export const EditarTransacaoModal = ({
                 <input
                   className="border-b p-2 outline-0 w-40 border-primary"
                   type="text"
-                  {...register("descricao")}
+                  {...register("description")}
                 />
 
                 <select
                   id="tipo"
                   className="border-b p-2 outline-0 w-40 border-primary"
-                  {...register("tipo")}
+                  {...register("type")}
                 >
-                  <option value="Despesa">Despesa</option>
-                  <option value="Receita">Receita</option>
+                  <option value="income">Despesa</option>
+                  <option value="expense">Receita</option>
                 </select>
 
                 <select
                   id="categoria"
                   className="border-b p-2 outline-0 w-40 border-primary"
-                  {...register("categoria")}
+                  {...register("category")}
                 >
-                  <option value="Despesa">Alimentação</option>
-                  <option value="Receita">Transporte</option>
-                  <option value="Receita">Renda</option>
-                  <option value="Receita">Lazer</option>
+                  <option value="alimentation">Alimentação</option>
+                  <option value="transport">Transporte</option>
+                  <option value="rent">Renda</option>
+                  <option value="leisure">Lazer</option>
                 </select>
 
                 <input
                   className="border-b p-2 outline-0 w-40 border-primary"
                   type="number"
                   placeholder=""
-                  {...register("valor", { valueAsNumber: true })}
+                  {...register("amount", { valueAsNumber: true })}
                 />
               </div>
               <div className="flex gap-2 items-center justify-end">
@@ -113,7 +116,7 @@ export const EditarTransacaoModal = ({
                   Submit
                 </button>
                 <button
-                type="button"
+                  type="button"
                   className=" bg-red-500 text-gray-100 mt-2  cursor-pointer hover:bg-gray-600 transition-all duration-300 hover border w-40 rounded-md p-2"
                   onClick={handleCloseModal}
                 >
