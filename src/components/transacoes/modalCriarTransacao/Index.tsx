@@ -5,16 +5,18 @@ import {
   type TransactioFormData,
 } from "../../../schemas/TransactionSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TransactionService } from "../../../services/TransactionService";
+import type { Transaction } from "../../../types/Transaction";
 
 interface ModalCreateTransactionProps {
   isOpen: boolean;
   setIsOpen?: (value: boolean) => void;
+  onCreate: (data: Transaction) => void
 }
 
 export const ModalCreateTransaction = ({
   isOpen,
   setIsOpen,
+  onCreate
 }: ModalCreateTransactionProps) => {
 
   function handleCloseModal() {
@@ -27,13 +29,9 @@ export const ModalCreateTransaction = ({
     resolver: zodResolver(transationSchema),
   });
 
-  async function onSubmit(data: TransactioFormData) {
-    const transaction = {
-      id: crypto.randomUUID(),
-      createdAt: new Date().toDateString(),
-      ...data, 
-    }
-    TransactionService.create(transaction)
+  async function onSubmit(data: Transaction) {
+   onCreate(data)
+   setIsOpen ? setIsOpen(false): isOpen
   }
 
   return (
