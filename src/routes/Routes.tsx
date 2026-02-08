@@ -1,7 +1,7 @@
 import {Routes, Route} from "react-router-dom"
 import { Layout } from "../layout/Index"
 import { Dashboard } from "../pages/dashboard/Index"
-import { Transacoes } from "../pages/transacoes/Index"
+import { Transacoes } from "../pages/transaction/Index"
 import { Categorias } from "../pages/categorias/Index"
 import { Relatorios } from "../pages/relatorios/Index"
 import { Configuracoes } from "../pages/configuracoes/Index"
