@@ -13,12 +13,14 @@ interface EditarTransacaoModalProps {
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
   dataTransactioEdit?: Transaction;
+  onUpdate: (id: string, data: Transaction) => void;
 }
 
 export const EditarTransacaoModal = ({
   isOpen,
   setIsOpen,
   dataTransactioEdit,
+  onUpdate
 }: EditarTransacaoModalProps) => {
   function handleCloseModal() {
     if (setIsOpen) {
@@ -43,12 +45,8 @@ export const EditarTransacaoModal = ({
     },
   });
 
-  function handleUpdateTransaction(data: TransactioFormData) {
-    const newTransaction = {
-      createdAt: new Date().toDateString(),
-      ...data,
-    };
-    TransactionService.update(transaction.id, newTransaction);
+    function handleUpdateTransaction(data: Transaction) {
+    onUpdate(transaction.id, data)
     handleCloseModal();
   }
 

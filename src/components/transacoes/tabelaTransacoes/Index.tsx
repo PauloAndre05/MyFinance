@@ -11,23 +11,29 @@ interface tableTransactionsProp {
   transactions: Transaction[];
   getTransactionById: (id: string) => void;
   transactionFound?: Transaction;
+  onUpdate: (id: string, data: Transaction) => void
+  onDelete: (id: string) => void
 }
 
 export const TableTransactions = ({
   transactions,
   getTransactionById,
   transactionFound,
+  onUpdate,
+  onDelete
 }: tableTransactionsProp) => {
   const [isOpenModalEliminar, setIsOpenModalEliminar] = useState(false);
   const [isOpenEditarModal, setIsOpenEditarModal] = useState(false);
+  const [idSelectedToDelete, setIdSelectToDelete] = useState<string>("");
 
-  function handleOpenModalEliminar() {
+  function handleOpenModalEliminar(id: string) {
+    setIdSelectToDelete(id)
     setIsOpenModalEliminar(!isOpenModalEliminar);
   }
   function handleOpenEditarModal() {
     setIsOpenEditarModal(!isOpenEditarModal);
   }
-
+  
   return (
     <>
       <table className="bg-white dark:bg-crdBg-secondary shadow-md rounded-md w-full overflow-y-auto">
@@ -44,7 +50,7 @@ export const TableTransactions = ({
 
         <tbody className="text-sm">
           {transactions.map((transaction) => {
-            const typevalue = transaction.type === "expense"
+            const typevalue = transaction.type === "expense";
             return (
               <tr className="shadow" key={transaction.id}>
                 <td className="py-4  px-10 cursor-pointer">
@@ -53,13 +59,17 @@ export const TableTransactions = ({
                 <td className="py-4  px-10 cursor-pointer">
                   {transaction.description}
                 </td>
-                <td className={`py-4  px-10 cursor-pointer ${typevalue ? "text-red-400" : "text-green-400"}`}>
+                <td
+                  className={`py-4  px-10 cursor-pointer ${typevalue ? "text-red-400" : "text-green-400"}`}
+                >
                   {transaction.type}
                 </td>
                 <td className="py-4  px-10 cursor-pointer">
                   {transaction.category}
                 </td>
-                <td className={`py-4  px-10 cursor-pointer flex items-center gap-1 text-right ${typevalue ? "text-red-400" : "text-green-400" }`}>
+                <td
+                  className={`py-4  px-10 cursor-pointer flex items-center gap-1 text-right ${typevalue ? "text-red-400" : "text-green-400"}`}
+                >
                   {typevalue && <span>-</span>}
                   <div className="flex items-center">
                     <LiaEuroSignSolid size={14} />
@@ -78,7 +88,7 @@ export const TableTransactions = ({
                   </button>
                   <button
                     className="p-1 cursor-pointer"
-                    onClick={handleOpenModalEliminar}
+                    onClick={() => handleOpenModalEliminar(transaction.id)}
                   >
                     <BsTrash3 size={15} />
                   </button>
@@ -92,7 +102,8 @@ export const TableTransactions = ({
         <ModalEliminar
           isOpen={isOpenModalEliminar}
           setIsOpen={setIsOpenModalEliminar}
-          nomeAcao="Transação"
+          id={idSelectedToDelete}
+          onDelete={onDelete}
         />
       )}
       {isOpenEditarModal && (
@@ -100,6 +111,7 @@ export const TableTransactions = ({
           isOpen={isOpenEditarModal}
           setIsOpen={setIsOpenEditarModal}
           dataTransactioEdit={transactionFound}
+          onUpdate={onUpdate}
         />
       )}
     </>

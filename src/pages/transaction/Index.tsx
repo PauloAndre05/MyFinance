@@ -5,6 +5,7 @@ import { TableTransactions } from "../../components/transacoes/tabelaTransacoes/
 import { ModalCreateTransaction } from "../../components/transacoes/modalCriarTransacao/Index";
 import { TransactionService } from "../../services/TransactionService";
 import type { Transaction } from "../../types/Transaction";
+import type { TransactioFormData } from "../../schemas/TransactionSchema";
 
 export const Transacoes = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -12,19 +13,57 @@ export const Transacoes = () => {
     [],
   );
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [transactionToEdit, setTransactionToEdit] =
-    useState<Transaction>();
+  const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
 
   useEffect(() => {
     document.title = "MyFinance - Transações";
+
     async function loadTransactions() {
       const data = await TransactionService.getAll();
       setTransactions(data);
       setFilteredTransacoes(data);
-      console.log(data);
     }
     loadTransactions();
   }, []);
+
+  /* CRIAÇÃO DE UMA TRANSAÇÃO */
+
+  function handleCreateTransaction(data: TransactioFormData) {
+    const transaction = {
+      id: crypto.randomUUID(),
+      createdAt: new Date().toDateString(),
+      ...data,
+    };
+    TransactionService.create(transaction);
+    setTransactions((prev) => [...prev, transaction]);
+    setFilteredTransacoes((prev) => [...prev, transaction]);
+  }
+
+  /* EDIÇÃO DA TRANSAÇÃO */
+
+  function handleEdiTranasaction(id: string, transaction: TransactioFormData) {
+    const update = {
+      id,
+      createdAt: new Date().toString(),
+      ...transaction,
+    };
+    TransactionService.update(id, update);
+
+    setTransactions((prev) =>
+      prev.map((item) => (item.id === id ? update : item)),
+    );
+    setFilteredTransacoes((prev) =>
+      prev.map((item) => (item.id === id ? update : item)),
+    );
+  }
+
+  /* ELIMINAR TRANSAÇÃO */
+
+  function handleDeleteTransaction(id: string) {
+    TransactionService.remove(id)
+    setTransactions((prev) => prev.filter(item => item.id !== id))
+    setFilteredTransacoes((prev) => prev.filter(item => item.id !== id))
+  }
 
   function handleSearch(term: string) {
     const filtered = term
@@ -61,8 +100,14 @@ export const Transacoes = () => {
         transactions={filteredTransacoes}
         getTransactionById={getTransactionById}
         transactionFound={transactionToEdit}
+        onUpdate={handleEdiTranasaction}
+        onDelete={handleDeleteTransaction}
       />
-      <ModalCreateTransaction isOpen={isOpenModal} setIsOpen={setIsOpenModal} />
+      <ModalCreateTransaction
+        isOpen={isOpenModal}
+        setIsOpen={setIsOpenModal}
+        onCreate={handleCreateTransaction}
+      />
     </div>
   );
 };
