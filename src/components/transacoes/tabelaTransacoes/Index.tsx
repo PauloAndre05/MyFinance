@@ -37,7 +37,7 @@ export const TableTransactions = ({
   return (
     <>
       <table className="bg-white dark:bg-crdBg-secondary shadow-md rounded-md w-full overflow-y-auto">
-        <thead className=" text-left text-sm">
+        <thead className=" text-left text-sm bg-blue-50">
           <tr>
             <th className="py-4  px-10 cursor-pointer">Date</th>
             <th className="py-4  px-10 cursor-pointer">Description</th>
@@ -52,7 +52,7 @@ export const TableTransactions = ({
           {transactions.map((transaction) => {
             const typevalue = transaction.type === "expense";
             return (
-              <tr className="shadow" key={transaction.id}>
+              <tr className="shadow hover:bg-blue-50 transition-colors duration-300" key={transaction.id}>
                 <td className="py-4  px-10 cursor-pointer">
                   {format(transaction.date, "dd-MM-yyyy")}
                 </td>
