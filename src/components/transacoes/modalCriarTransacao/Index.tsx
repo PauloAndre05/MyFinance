@@ -5,20 +5,21 @@ import {
   type TransactioFormData,
 } from "../../../schemas/TransactionSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type { Transaction } from "../../../types/Transaction";
+import type { Category } from "../../../types/Category";
 
 interface ModalCreateTransactionProps {
   isOpen: boolean;
   setIsOpen?: (value: boolean) => void;
-  onCreate: (data: Transaction) => void
+  onCreate: (data: TransactioFormData) => void;
+  category: Category[];
 }
 
 export const ModalCreateTransaction = ({
   isOpen,
   setIsOpen,
-  onCreate
+  onCreate,
+  category,
 }: ModalCreateTransactionProps) => {
-
   function handleCloseModal() {
     if (setIsOpen) {
       setIsOpen(false);
@@ -29,9 +30,9 @@ export const ModalCreateTransaction = ({
     resolver: zodResolver(transationSchema),
   });
 
-  async function onSubmit(data: Transaction) {
-   onCreate(data)
-   setIsOpen ? setIsOpen(false): isOpen
+  async function onSubmit(data: TransactioFormData) {
+    onCreate(data);
+    if (setIsOpen) setIsOpen(false);
   }
 
   return (
@@ -64,7 +65,9 @@ export const ModalCreateTransaction = ({
                 className="w-65 outline-none border-b border-primary p-2"
                 {...register("type")}
               >
-                <option className="" disabled>Tipo de transação</option>
+                <option className="" disabled>
+                  Tipo de transação
+                </option>
                 <option className="" value="income">
                   Receita
                 </option>
@@ -77,22 +80,11 @@ export const ModalCreateTransaction = ({
                 className="w-65 outline-none border-b border-primary p-2"
                 {...register("category")}
               >
-                <option className="" disabled>Categoria</option>
-                <option className="" value="transport">
-                  Transaport
-                </option>
-                <option className="" value="leisure">
-                  Lazer
-                </option>
-                <option className="" value="alimentation">
-                  Alimentação
-                </option>
-                <option className="" value="transfer">
-                  Transferência
-                </option>
-                <option className="" value="deposit">
-                  Depósito a ordem
-                </option>
+                {category.map((category) => (
+                  <option className="" value={category.name} key={category.id}>
+                    {category.name}
+                  </option>
+                ))}
               </select>
 
               <div className="flex flex-col w-65">
@@ -101,7 +93,7 @@ export const ModalCreateTransaction = ({
                   step="0.01"
                   placeholder="Valor"
                   className="outline-none border-b border-primary w-full p-2"
-                  {...register("amount", {valueAsNumber: true})}
+                  {...register("amount", { valueAsNumber: true })}
                 />
               </div>
 

@@ -11,8 +11,8 @@ interface tableTransactionsProp {
   transactions: Transaction[];
   getTransactionById: (id: string) => void;
   transactionFound?: Transaction;
-  onUpdate: (id: string, data: Transaction) => void
-  onDelete: (id: string) => void
+  onUpdate: (id: string, data: Transaction) => void;
+  onDelete: (id: string) => void;
 }
 
 export const TableTransactions = ({
@@ -20,20 +20,20 @@ export const TableTransactions = ({
   getTransactionById,
   transactionFound,
   onUpdate,
-  onDelete
+  onDelete,
 }: tableTransactionsProp) => {
   const [isOpenModalEliminar, setIsOpenModalEliminar] = useState(false);
   const [isOpenEditarModal, setIsOpenEditarModal] = useState(false);
   const [idSelectedToDelete, setIdSelectToDelete] = useState<string>("");
 
   function handleOpenModalEliminar(id: string) {
-    setIdSelectToDelete(id)
+    setIdSelectToDelete(id);
     setIsOpenModalEliminar(!isOpenModalEliminar);
   }
   function handleOpenEditarModal() {
     setIsOpenEditarModal(!isOpenEditarModal);
   }
-  
+
   return (
     <>
       <table className="bg-white dark:bg-crdBg-secondary shadow-md rounded-md w-full overflow-y-auto">
@@ -52,7 +52,10 @@ export const TableTransactions = ({
           {transactions.map((transaction) => {
             const typevalue = transaction.type === "expense";
             return (
-              <tr className="shadow hover:bg-blue-50 transition-colors duration-300" key={transaction.id}>
+              <tr
+                className="shadow hover:bg-blue-50 transition-colors duration-300"
+                key={transaction.id}
+              >
                 <td className="py-4  px-10 cursor-pointer">
                   {format(transaction.date, "dd-MM-yyyy")}
                 </td>
