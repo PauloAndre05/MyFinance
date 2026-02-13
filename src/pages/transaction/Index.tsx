@@ -6,7 +6,7 @@ import { ModalCreateTransaction } from "../../components/transacoes/modalCriarTr
 import { TransactionService } from "../../services/TransactionService";
 import type { Transaction } from "../../types/Transaction";
 import type { TransactioFormData } from "../../schemas/TransactionSchema";
-import type { Category } from "../../types/Category";
+import type { CategoryInterface } from "../../types/Category";
 import { CategoryService } from "../../services/CategoryServices";
 
 export const Transacoes = () => {
@@ -14,7 +14,7 @@ export const Transacoes = () => {
   const [filteredTransacoes, setFilteredTransacoes] = useState<Transaction[]>(
     [],
   );
-  const [category, setCategory] = useState<Category[]>([]);
+  const [category, setCategory] = useState<CategoryInterface[]>([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
 

@@ -1,24 +1,24 @@
-import type { Category } from "../types/Category";
+import type { CategoryInterface } from "../types/Category";
 
 const STORAGE_KEY = "@finance:category";
 
-async function getAll(): Promise<Category[]> {
+async function getAll(): Promise<CategoryInterface[]> {
   const data = localStorage.getItem(STORAGE_KEY);
   return data ? JSON.parse(data) : [];
 }
 
-async function save(category: Category[]) {
+async function save(category: CategoryInterface[]) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(category));
 }
 
-async function create(category: Category): Promise<void> {
+async function create(category: CategoryInterface): Promise<void> {
   const categorys = await getAll();
   save([category, ...categorys]);
 }
 
 async function update(
   id: string,
-  updateCategory: Partial<Category>,
+  updateCategory: Partial<CategoryInterface>,
 ): Promise<void> {
   const categorys = await getAll();
 
