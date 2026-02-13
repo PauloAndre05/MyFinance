@@ -6,12 +6,15 @@ import { ModalCreateTransaction } from "../../components/transacoes/modalCriarTr
 import { TransactionService } from "../../services/TransactionService";
 import type { Transaction } from "../../types/Transaction";
 import type { TransactioFormData } from "../../schemas/TransactionSchema";
+import type { CategoryInterface } from "../../types/Category";
+import { CategoryService } from "../../services/CategoryServices";
 
 export const Transacoes = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [filteredTransacoes, setFilteredTransacoes] = useState<Transaction[]>(
     [],
   );
+  const [category, setCategory] = useState<CategoryInterface[]>([]);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction>();
 
@@ -23,7 +26,13 @@ export const Transacoes = () => {
       setTransactions(data);
       setFilteredTransacoes(data);
     }
+
+    async function loadCategorys() {
+      const data = await CategoryService.getAll();
+      setCategory(data);
+    }
     loadTransactions();
+    loadCategorys();
   }, []);
 
   /* CRIAÇÃO DE UMA TRANSAÇÃO */
@@ -60,9 +69,9 @@ export const Transacoes = () => {
   /* ELIMINAR TRANSAÇÃO */
 
   function handleDeleteTransaction(id: string) {
-    TransactionService.remove(id)
-    setTransactions((prev) => prev.filter(item => item.id !== id))
-    setFilteredTransacoes((prev) => prev.filter(item => item.id !== id))
+    TransactionService.remove(id);
+    setTransactions((prev) => prev.filter((item) => item.id !== id));
+    setFilteredTransacoes((prev) => prev.filter((item) => item.id !== id));
   }
 
   function handleSearch(term: string) {
@@ -107,6 +116,7 @@ export const Transacoes = () => {
         isOpen={isOpenModal}
         setIsOpen={setIsOpenModal}
         onCreate={handleCreateTransaction}
+        category={category}
       />
     </div>
   );

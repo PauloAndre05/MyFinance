@@ -17,7 +17,7 @@ export const ModalEliminar = ({
     }
   }
 
-  async function DeleteTransaction () {
+  async function Delete () {
     onDelete(id)
     if (setIsOpen) {
       setIsOpen(false);
@@ -38,7 +38,7 @@ export const ModalEliminar = ({
             <div className="flex justify-between gap-3">
               <button
                 className="w-full bg-gray-500 dark:bg-secondary text-gray-100 py-2 rounded-md mt-4 cursor-pointer hover:bg-red-400 transition-all duration-100 hover:rounded-md"
-                onClick={DeleteTransaction}
+                onClick={Delete}
               >
                 Eliminar
               </button>

@@ -7,8 +7,8 @@ async function getAll(): Promise<Transaction[]> {
     return data ? JSON.parse(data) : []
 }
 
-function save(transacoes: Transaction[]){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(transacoes))
+function save(transactions: Transaction[]){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions))
 }
 
 async function create(transaction: Transaction): Promise<void> {
