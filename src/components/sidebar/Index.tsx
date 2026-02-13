@@ -5,10 +5,10 @@ export const Sidebar = () => {
   const navigate = useNavigate();
   const linkList = [
     { id: 1, name: "Dashboard", href: "/" },
-    { id: 2, name: "Transações", href: "/transacoes" },
-    { id: 3, name: "Categorias", href: "/categorias" },
-    { id: 4, name: "Relatórios", href: "/relatorios" },
-    { id: 5, name: "Configurações", href: "/configuracoes" },
+    { id: 2, name: "Transações", href: "/transactions" },
+    { id: 3, name: "Categorias", href: "/categories" },
+    { id: 4, name: "Relatórios", href: "/reports" },
+    { id: 5, name: "Configurações", href: "/settings" },
   ];
   const [isActive, setrIsActive] = useState(1);
 

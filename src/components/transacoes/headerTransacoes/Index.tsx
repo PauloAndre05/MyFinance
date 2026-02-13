@@ -26,7 +26,7 @@ export const HeaderTransacoes = ({
     <div className="flex flex-col">
       <div className="flex justify-between items-center ">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold">Transações</h1>
+          <h1 className="text-xl font-semibold">Transações</h1>
           <p className="text-sm">{`${currentMonth} de ${currenteYear} . ${totalTransacoes} transações`}</p>
         </div>
         <button
