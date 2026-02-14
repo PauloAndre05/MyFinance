@@ -37,14 +37,14 @@ export const CategoryItem = ({ category, onDelete }: CategoryIntemProps) => {
             Despesa
           </span>
           <div className="">
-            <button className="p-1 mr-1 cursor-pointer">
+            <button className="mr-1 cursor-pointer">
               <PiPencilLight size={15} />
             </button>
-            <button className="p-1 cursor-pointer"
+            <button className="cursor-pointer"
             onClick={() => handleModal(category.id)}>
               <BsTrash3 size={15} />
             </button>
-            <ModalEliminar isOpen={isOpen} setIsOpen={setIsOpen} onDelete={onDelete} id={id}/>
+            <ModalEliminar isOpen={isOpen} setIsOpen={setIsOpen} onDelete={onDelete} id={id} actioName="category"/>
           </div>
         </div>
       </div>

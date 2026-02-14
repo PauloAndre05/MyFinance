@@ -107,6 +107,7 @@ export const TableTransactions = ({
           setIsOpen={setIsOpenModalEliminar}
           id={idSelectedToDelete}
           onDelete={onDelete}
+          actioName="transaction"
         />
       )}
       {isOpenEditarModal && (
