@@ -2,6 +2,7 @@ interface ModalEliminarProps {
   isOpen?: boolean;
   setIsOpen?: (isOpen: boolean) => void;
   id: string;
+  actioName: string,
   onDelete: (id: string) => void
 }
 
@@ -9,7 +10,8 @@ export const ModalEliminar = ({
   isOpen,
   setIsOpen,
   id,
-  onDelete
+  onDelete,
+  actioName
 }: ModalEliminarProps) => {
   function handleCloseModal() {
     if (setIsOpen) {
@@ -33,11 +35,11 @@ export const ModalEliminar = ({
             onClick={(e) => e.stopPropagation()}
           >
             <h1 className="text-center font-semibold">
-              Are you sure that you miss delete that transaction?
+              Are you sure that you miss delete that {actioName}?
             </h1>
             <div className="flex justify-between gap-3">
               <button
-                className="w-full bg-gray-500 dark:bg-secondary text-gray-100 py-2 rounded-md mt-4 cursor-pointer hover:bg-red-400 transition-all duration-100 hover:rounded-md"
+                className="w-full text-gray-100 py-2 rounded-md mt-4 cursor-pointer bg-red-400 hover:bg-red-500 transition-all duration-100 hover:rounded-md"
                 onClick={Delete}
               >
                 Eliminar
